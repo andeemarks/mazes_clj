@@ -4,8 +4,8 @@
 
 (deftest cells
   (testing "have an initially specified position"
-    (is (= 2 (:row (init 2 4))))
-    (is (= 4 (:column (init 2 4)))))
+    (is (= 2 (:row (:position (init 2 4)))))
+    (is (= 4 (:column (:position (init 2 4))))))
 
   (testing "have an initially empty map of links"
     (is (= '{} (:links (init 2 4)))))
