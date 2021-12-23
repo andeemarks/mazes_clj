@@ -11,3 +11,8 @@
 
 (defn linked? [cell other]
   (contains? (:links cell) (:position other)))
+
+(defn unlink [cell other]
+  {:position (:position cell)
+   :links (dissoc (:links cell)
+                  (:position other))})

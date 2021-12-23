@@ -13,8 +13,19 @@
   (testing "can be linked to other cells"
     (let [c (init 2 4)
           c2 (init 1 4)
-          links (:links (link c c2))]
-      (is (= true (get links {:row 1 :column 4})))))
+          c3 (init 3 4)
+          links (:links (link (link c c2) c3))]
+      (is (= true (get links {:row 1 :column 4})))
+      (is (= true (get links {:row 3 :column 4})))))
+
+  (testing "can be unlinked from selected cells"
+    (let [c (init 2 4)
+          c2 (init 1 4)
+          c3 (init 3 4)
+          c4 (link (link c c2) c3)
+          c5 (unlink c c2)
+          links (:links c5)]
+      (is (= false (get links {:row 1 :column 4})))))
 
   (testing "know if they're linked to other cells"
     (let [c (init 2 4)
