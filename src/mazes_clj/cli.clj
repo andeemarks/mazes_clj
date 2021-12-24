@@ -1,7 +1,7 @@
 (ns mazes-clj.cli
-    (:require [clojure.string :as string]
-      [clojure.tools.cli :refer [parse-opts]])
-    (:gen-class))
+  (:require [clojure.string :as string]
+            [clojure.tools.cli :refer [parse-opts]])
+  (:gen-class))
 
 ;; read https://github.com/clojure/tools.cli
 ;; for further details on option parsing
@@ -33,20 +33,20 @@
 
 (defn usage [options-summary]
   (string/join
-    \newline
-    ["This is my program. There are many like it, but this one is mine."
-     ""
-     "Usage: mazes_clj [options] action"
-     ""
-     "Options:"
-     options-summary
-     ""
-     "Actions:"
-     "  start    Start a new server"
-     "  stop     Stop an existing server"
-     "  status   Print a server's status"
-     ""
-     "Please refer to the manual page for more information."]))
+   \newline
+   ["This is my program. There are many like it, but this one is mine."
+    ""
+    "Usage: mazes_clj [options] action"
+    ""
+    "Options:"
+    options-summary
+    ""
+    "Actions:"
+    "  show    Display the grid"
+    "  stop     Stop an existing server"
+    "  status   Print a server's status"
+    ""
+    "Please refer to the manual page for more information."]))
 
 (defn error-msg [errors]
   (str "Errors while parsing command line args:\n\n"
@@ -56,7 +56,7 @@
   "make sure the 'command' part of the command line is correct"
   [arguments]
   (and (= 1 (count arguments))
-       (#{"start" "stop" "status"} (first arguments))))
+       (#{"show" "stop" "status"} (first arguments))))
 
 (defn invalid-action [summary arguments]
   (str (usage summary)
@@ -70,12 +70,12 @@
   [args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)
         cmd (first arguments)]
-    (println "---- debug output, remove for production code ----")
-    (println "options   " (pr-str options))
-    (println "arguments " (pr-str arguments))
-    (println "errors    " (pr-str errors))
-    (println "summary   " \newline summary)
-    (println "--------------------------------------------------")
+    ;; (println "---- debug output, remove for production code ----")
+    ;; (println "options   " (pr-str options))
+    ;; (println "arguments " (pr-str arguments))
+    ;; (println "errors    " (pr-str errors))
+    ;; (println "summary   " \newline summary)
+    ;; (println "--------------------------------------------------")
     (cond
       (:help options)         {:exit-message (usage summary) :ok? true}  ; help => exit OK with usage summary
       errors                  {:exit-message (error-msg errors)}         ; errors => exit with description of errors

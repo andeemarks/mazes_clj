@@ -18,3 +18,32 @@
 
 (defn size [cell]
   (* (:rows cell) (:columns cell)))
+
+(def ^:const top "|")
+(def ^:const bottom "+")
+(def ^:const corner "+")
+
+(defn cell-to-s [cell]
+  (let [east-of-cell (:east cell)
+        east-boundary (if (cell/linked? cell east-of-cell) " " "|")
+        south-of-cell (:south cell)
+        south-boundary (if (cell/linked? cell south-of-cell) "   " "---")
+        top (apply str (concat top "   " east-boundary))
+        bottom (apply str (concat bottom south-boundary corner))
+        ;; _ (println top "\n")
+        ;; _ (println bottom "\n")
+        ]
+    {:top top
+     :bottom bottom}))
+
+(defn row-to-s [row]
+  (let [top (map #(apply str (concat (:top (cell-to-s %)))) row)
+        bottom (map #(apply str (concat (:bottom (cell-to-s %)))) row)]
+    (apply str (concat top "\n" bottom "\n"))))
+
+(defn to-s [grid]
+  (let [output (concat "+"
+                       (repeat (:columns grid) "---+")
+                       "\n"
+                       (map #(row-to-s %) (:cells grid)))]
+    (apply str output)))

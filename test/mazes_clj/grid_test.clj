@@ -15,6 +15,7 @@
           c (:cells g)
           row1 (first c)]
       (is (not-empty c))
+
       (is (= (:position (cell/init 0 0)) (:position (nth row1 0))))
       (is (= (:position (cell/init 0 1)) (:position (nth row1 1))))))
 
