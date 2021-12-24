@@ -34,3 +34,6 @@
           c3 (link c c2)]
       (is (= false (linked? c c)))
       (is (= true (linked? c3 c2))))))
+
+(testing "know their neighbours")
+(testing "can calculate relative distances")
