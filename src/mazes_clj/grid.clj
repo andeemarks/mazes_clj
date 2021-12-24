@@ -15,3 +15,6 @@
 
 (defn init [rows columns]
   {:rows rows :columns columns :cells (prepare-grid rows columns)})
+
+(defn size [cell]
+  (* (:rows cell) (:columns cell)))

@@ -24,4 +24,7 @@
       (is (= (cell/init -1 0) (:north c)))
       (is (= (cell/init 1 0) (:south c)))
       (is (= (cell/init 0 -1) (:west c)))
-      (is (= (cell/init 0 1) (:east c))))))
+      (is (= (cell/init 0 1) (:east c)))))
+
+  (testing "know their size"
+    (is (= 15 (size (init 3 5))))))
