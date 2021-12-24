@@ -15,5 +15,13 @@
           c (:cells g)
           row1 (first c)]
       (is (not-empty c))
-      (is (= (cell/init 0 0) (nth row1 0)))
-      (is (= (cell/init 0 1) (nth row1 1))))))
+      (is (= (:position (cell/init 0 0)) (:position (nth row1 0))))
+      (is (= (:position (cell/init 0 1)) (:position (nth row1 1))))))
+
+  (testing "are initialised with knowledge of ordinal neighbours"
+    (let [g (init 1 1)
+          c (first (first (:cells g)))]
+      (is (= (cell/init -1 0) (:north c)))
+      (is (= (cell/init 1 0) (:south c)))
+      (is (= (cell/init 0 -1) (:west c)))
+      (is (= (cell/init 0 1) (:east c))))))

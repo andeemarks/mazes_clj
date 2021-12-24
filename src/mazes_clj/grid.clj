@@ -2,9 +2,16 @@
   (:require [mazes-clj.cell :as cell])
   (:gen-class))
 
-(defn init-cells [rows columns]
+(defn configure-cell [row column]
+  (-> (cell/init row column)
+      (assoc :north (cell/init (dec row) column))
+      (assoc :south (cell/init (inc row) column))
+      (assoc :west (cell/init row (dec column)))
+      (assoc :east (cell/init row (inc column)))))
+
+(defn prepare-grid [rows columns]
   (for [r (range rows)]
-    (map (fn [c] (cell/init r c)) (range columns))))
+    (map (fn [c] (configure-cell r c)) (range columns))))
 
 (defn init [rows columns]
-  {:rows rows :columns columns :cells (init-cells rows columns)})
+  {:rows rows :columns columns :cells (prepare-grid rows columns)})
