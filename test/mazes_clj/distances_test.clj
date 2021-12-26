@@ -15,5 +15,12 @@
       (is (= true (contains? (:cells d2) c)))
       (is (= 3 (get (:cells d2) c)))))
 ;;   (testing "can find a path to a goal")
-;;   (testing "can find the maximum distance to any cell")
-  )
+
+  (testing "can find the maximum distance to any cell"
+    (let [d (-> (init (cell/init 0 0))
+                (add (cell/init 0 1) 2)
+                (add (cell/init 1 0) 3)
+                (add (cell/init 1 1) 1))
+          max-distance (max d)]
+      (is (= 3 (:distance max-distance)))
+      (is (= (cell/init 1 0) (:cell max-distance))))))
