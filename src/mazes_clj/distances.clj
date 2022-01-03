@@ -15,3 +15,6 @@
         max-cell (first (apply max-key #(val %) cells))]
     {:cell max-cell
      :distance (get cells max-cell)}))
+
+(defn path-to [d goal-cell]
+  (vector (:root d) goal-cell))

@@ -14,7 +14,21 @@
           d2 (d/add d c 3)]
       (is (= 3 (get (:cells d2) c)))))
 
-  (testing "can find a path to a goal")
+  (testing "can find a path to a goal"
+    (let [d (d/init (cell/init 0 0))
+          path (d/path-to d (cell/init 2 2))]
+      (is (not (= nil path)))))
+
+  (testing "path to goal starts at root"
+    (let [d (d/init (cell/init 0 0))
+          path (d/path-to d (cell/init 2 2))]
+      (is (= (:root d) (first path)))))
+
+  (testing "path to goal ends at goal"
+    (let [d (d/init (cell/init 0 0))
+          goal (cell/init 2 2)
+          path (d/path-to d goal)]
+      (is (= goal (last path)))))
 
   (testing "can find the maximum distance to any cell"
     (let [d (-> (d/init (cell/init 0 0))
